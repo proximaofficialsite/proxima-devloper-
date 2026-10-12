@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proxima Admin - Mobile Panel</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkbg: '#08090d',
+                        darkcard: '#0f121a',
+                        darkborder: '#1a202c',
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #08090d; color: #f3f4f6; }
+        .glass-panel { background: rgba(15, 18, 26, 0.95); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; height: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #1a202c; border-radius: 2px; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-blue-600 selection:text-white pb-20">
+
+    <!-- Mobile Header (Without Add Item Button) -->
+    <header class="glass-panel sticky top-0 z-40 border-b border-darkborder px-4 py-3.5 flex items-center justify-between shadow-xl">
+        <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-400 flex items-center justify-center shadow-lg shadow-blue-500/25">
+                <i class="fa-solid fa-shield-halved text-white text-base"></i>
+            </div>
+            <div>
+                <h1 class="text-sm font-extrabold tracking-tight text-white">PROXIMA ADMIN</h1>
+                <div class="flex items-center space-x-1.5 text-[10px] text-emerald-400 font-bold">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span>Firebase Connected</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-lg w-full mx-auto px-4 py-5 space-y-6">
+        
+        <!-- Direct Add/Edit Form Section -->
+        <div class="glass-panel rounded-3xl p-5 space-y-4 shadow-2xl border border-darkborder">
+            <div class="flex items-center justify-between border-b border-darkborder pb-3">
+                <h3 id="form-title" class="text-sm font-bold text-white flex items-center space-x-2">
+                    <i class="fa-solid fa-circle-plus text-blue-500"></i>
+                    <span>Add New Release</span>
+                </h3>
+                <button type="button" onclick="resetForm()" id="cancel-edit-btn" class="text-gray-400 hover:text-white text-xs font-bold hidden">Cancel Edit</button>
+            </div>
+
+            <form id="app-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                <input type="hidden" id="app-id">
+
+                <!-- Placement Custom Dark Selector -->
+                <div>
+                    <label class="block text-[10px] font-extrabold text-blue-400 uppercase tracking-wider mb-2">Target Placement / Section</label>
+                    <input type="hidden" id="app-type" value="free">
+                    <div class="grid grid-cols-1 gap-2">
+                        <button type="button" onclick="setPlacement('free')" id="type-btn-free" class="placement-btn flex items-center justify-between px-3.5 py-2.5 rounded-xl border border-blue-500 bg-blue-600/20 text-white text-xs font-bold transition">
+                            <span>🟢 Free Download (App Store Grid)</span>
+                            <i class="fa-solid fa-circle-check text-blue-400"></i>
+                        </button>
+                        <button type="button" onclick="setPlacement('paid_hack')" id="type-btn-paid_hack" class="placement-btn flex items-center justify-between px-3.5 py-2.5 rounded-xl border border-darkborder bg-darkbg text-gray-400 text-xs font-bold transition">
+                            <span>🔴 Buy Hack (Navigation Drawer)</span>
+                            <i class="fa-solid fa-circle-check text-blue-400 hidden"></i>
+                        </button>
+                        <button type="button" onclick="setPlacement('paid_sensi')" id="type-btn-paid_sensi" class="placement-btn flex items-center justify-between px-3.5 py-2.5 rounded-xl border border-darkborder bg-darkbg text-gray-400 text-xs font-bold transition">
+                            <span>🟡 Buy Sensi (Navigation Drawer)</span>
+                            <i class="fa-solid fa-circle-check text-blue-400 hidden"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- App Name -->
+                <div>
+                    <label class="block text-[10px] font-extrabold text-gray-400 uppercase tracking-wider mb-1.5">App Name</label>
+                    <input type="text" id="app-name" required placeholder="e.g. PROXIMA VIP" 
+                        class="w-full bg-darkbg border border-darkborder rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-blue-500 font-medium">
+                </div>
+
+                <!-- Category Custom Dark Selector -->
+                <div>
+                    <label class="block text-[10px] font-extrabold text-gray-400 uppercase tracking-wider mb-2">Category Badge</label>
+                    <input type="hidden" id="app-category" value="hack">
+                    <div class="flex items-center space-x-2 overflow-x-auto pb-1 custom-scrollbar">
+                        <button type="button" onclick="setCategory('hack')" id="cat-btn-hack" class="cat-select-btn px-4 py-2 rounded-xl text-xs font-bold bg-blue-600 text-white border border-blue-500 shadow-md shadow-blue-600/20 transition shrink-0">hack</button>
+                        <button type="button" onclick="setCategory('panel')" id="cat-btn-panel" class="cat-select-btn px-4 py-2 rounded-xl text-xs font-bold bg-darkbg border border-darkborder text-gray-400 transition shrink-0">panel</button>
+                        <button type="button" onclick="setCategory('ff config file')" id="cat-btn-ff config file" class="cat-select-btn px-4 py-2 rounded-xl text-xs font-bold bg-darkbg border border-darkborder text-gray-400 transition shrink-0">ff config file</button>
+                    </div>
+                </div>
+
+                <!-- Price Field -->
+                <div>
+                    <label class="block text-[10px] font-extrabold text-gray-400 uppercase tracking-wider mb-1.5">Price</label>
+                    <input type="text" id="app-price" required placeholder="e.g. Free or ₹299" 
+                        class="w-full bg-darkbg border border-darkborder rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-blue-500 font-medium">
+                </div>
+
+                <!-- Download Link -->
+                <div>
+                    <label class="block text-[10px] font-extrabold text-gray-400 uppercase tracking-wider mb-1.5">Download / Buy Link URL</label>
+                    <input type="url" id="app-download" required placeholder="https://..." 
+                        class="w-full bg-darkbg border border-darkborder rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-blue-500 font-medium">
+                </div>
+
+                <!-- Description -->
+                <div>
+                    <label class="block text-[10px] font-extrabold text-gray-400 uppercase tracking-wider mb-1.5">Description</label>
+                    <textarea id="app-desc" rows="2" required placeholder="Short details about the app/panel..." 
+                        class="w-full bg-darkbg border border-darkborder rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-gray-600 focus:outline-none focus:border-blue-500 font-medium"></textarea>
+                </div>
+
+                <!-- Action Button -->
+                <div class="flex items-center justify-end pt-2 border-t border-darkborder">
+                    <button type="submit" id="submit-btn" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 rounded-xl text-xs font-bold shadow-lg shadow-blue-600/30">Save to Cloud</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Releases Section -->
+        <div class="space-y-3">
+            <div class="flex items-center justify-between px-1">
+                <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">All Releases</span>
+                <span id="item-count-badge" class="text-xs px-3 py-0.5 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full font-extrabold">0</span>
+            </div>
+
+            <div id="admin-cards-container" class="space-y-3">
+                <!-- Dynamic cards -->
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 transform translate-y-24 opacity-0 transition-all duration-300 glass-panel bg-darkcard border border-blue-500/30 px-4 py-2.5 rounded-2xl shadow-2xl flex items-center space-x-2.5">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400 text-sm"></i>
+        <span id="toast-msg" class="text-xs font-bold text-white">Success!</span>
+    </div>
+
+    <!-- Firebase Script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, set, remove, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCQ35RcrrL0jJIWqsf8Tp5mcDuCRwX5dk4",
+            authDomain: "proxima-root.firebaseapp.com",
+            databaseURL: "https://proxima-root-default-rtdb.firebaseio.com",
+            projectId: "proxima-root",
+            storageBucket: "proxima-root.firebasestorage.app",
+            messagingSenderId: "641924713343",
+            appId: "1:641924713343:web:83c3fc52f9afab4747a84a",
+            measurementId: "G-7D4W0CYJ67"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        let allApps = [];
+
+        onValue(ref(db, 'apps'), (snapshot) => {
+            const data = snapshot.val();
+            allApps = data ? Object.keys(data).map(key => ({ id: key, ...data[key] })) : [];
+            renderAdminCards(allApps);
+        });
+
+        // Custom Placement Selector Controller
+        window.setPlacement = function(type) {
+            document.getElementById('app-type').value = type;
+            document.querySelectorAll('.placement-btn').forEach(btn => {
+                btn.className = "placement-btn flex items-center justify-between px-3.5 py-2.5 rounded-xl border border-darkborder bg-darkbg text-gray-400 text-xs font-bold transition";
+                btn.querySelector('i').classList.add('hidden');
+            });
+            const activeBtn = document.getElementById('type-btn-' + type);
+            if(activeBtn) {
+                activeBtn.className = "placement-btn flex items-center justify-between px-3.5 py-2.5 rounded-xl border border-blue-500 bg-blue-600/20 text-white text-xs font-bold transition";
+                activeBtn.querySelector('i').classList.remove('hidden');
+            }
+        }
+
+        // Custom Category Selector Controller
+        window.setCategory = function(category) {
+            document.getElementById('app-category').value = category;
+            document.querySelectorAll('.cat-select-btn').forEach(btn => {
+                btn.className = "cat-select-btn px-4 py-2 rounded-xl text-xs font-bold bg-darkbg border border-darkborder text-gray-400 transition shrink-0";
+            });
+            const activeBtn = document.getElementById('cat-btn-' + category);
+            if(activeBtn) {
+                activeBtn.className = "cat-select-btn px-4 py-2 rounded-xl text-xs font-bold bg-blue-600 text-white border border-blue-500 shadow-md shadow-blue-600/20 transition shrink-0";
+            }
+        }
+
+        window.resetForm = function() {
+            document.getElementById('form-title').innerHTML = '<i class="fa-solid fa-circle-plus text-blue-500 mr-1.5"></i><span>Add New Release</span>';
+            document.getElementById('submit-btn').innerText = 'Save to Cloud';
+            document.getElementById('cancel-edit-btn').classList.add('hidden');
+            document.getElementById('app-form').reset();
+            document.getElementById('app-id').value = '';
+            setPlacement('free');
+            setCategory('hack');
+        }
+
+        window.handleFormSubmit = async function(event) {
+            event.preventDefault();
+            const idInput = document.getElementById('app-id').value;
+            const appId = idInput ? idInput : 'app_' + Date.now();
+
+            const appData = {
+                itemType: document.getElementById('app-type').value,
+                name: document.getElementById('app-name').value,
+                category: document.getElementById('app-category').value,
+                size: document.getElementById('app-price').value,
+                icon: 'https://via.placeholder.com/100/2563eb/ffffff?text=App',
+                downloadUrl: document.getElementById('app-download').value,
+                description: document.getElementById('app-desc').value,
+                createdAt: Date.now()
+            };
+
+            try {
+                await set(ref(db, 'apps/' + appId), appData);
+                resetForm();
+                showToast("Saved successfully!");
+            } catch (error) {
+                showToast("Error saving data!", "error");
+            }
+        }
+
+        window.editApp = function(id) {
+            const app = allApps.find(item => item.id === id);
+            if (!app) return;
+            document.getElementById('form-title').innerHTML = '<i class="fa-solid fa-pen-to-square text-blue-500 mr-1.5"></i><span>Edit Release</span>';
+            document.getElementById('submit-btn').innerText = 'Update Cloud Data';
+            document.getElementById('cancel-edit-btn').classList.remove('hidden');
+            document.getElementById('app-id').value = app.id;
+            setPlacement(app.itemType || 'free');
+            document.getElementById('app-name').value = app.name;
+            setCategory(app.category || 'hack');
+            document.getElementById('app-price').value = app.size || '';
+            document.getElementById('app-download').value = app.downloadUrl;
+            document.getElementById('app-desc').value = app.description;
+            
+            // Scroll smoothly to form
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.deleteApp = async function(id) {
+            if (confirm("Delete this app? It will instantly remove from user store.")) {
+                try {
+                    await remove(ref(db, 'apps/' + id));
+                    showToast("Deleted successfully!");
+                } catch (error) {
+                    showToast("Failed to delete!", "error");
+                }
+            }
+        }
+
+        function renderAdminCards(apps) {
+            const container = document.getElementById('admin-cards-container');
+            document.getElementById('item-count-badge').innerText = apps.length;
+
+            if (apps.length === 0) {
+                container.innerHTML = `
+                    <div class="glass-panel p-8 rounded-2xl text-center space-y-2 border border-darkborder">
+                        <i class="fa-solid fa-box-open text-2xl text-gray-600"></i>
+                        <p class="text-xs text-gray-400 font-medium">No items uploaded yet.</p>
+                    </div>`;
+                return;
+            }
+
+            container.innerHTML = apps.map(app => `
+                <div class="glass-panel p-4 rounded-2xl border border-darkborder space-y-3 shadow-lg">
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 font-bold text-xs">
+                                ${app.name.substring(0, 2).toUpperCase()}
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-white text-xs sm:text-sm">${app.name}</h3>
+                                <div class="flex items-center space-x-2 mt-0.5">
+                                    <span class="text-[10px] px-2 py-0.5 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-md font-bold uppercase">${app.category}</span>
+                                    <span class="text-[10px] text-emerald-400 font-bold">${app.size || 'Free'}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between pt-1 border-t border-darkborder/60">
+                        <span class="text-[11px] text-gray-400 truncate max-w-[200px]">${app.downloadUrl}</span>
+                        <div class="flex items-center space-x-1.5">
+                            <button onclick="editApp('${app.id}')" class="w-8 h-8 rounded-xl bg-darkbg border border-darkborder text-gray-300 hover:text-white flex items-center justify-center transition">
+                                <i class="fa-solid fa-pen text-[10px]"></i>
+                            </button>
+                            <button onclick="deleteApp('${app.id}')" class="w-8 h-8 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 hover:bg-red-500 hover:text-white flex items-center justify-center transition">
+                                <i class="fa-solid fa-trash text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const msgEl = document.getElementById('toast-msg');
+            const iconEl = document.getElementById('toast-icon');
+            msgEl.innerText = message;
+            iconEl.className = type === 'error' ? "fa-solid fa-circle-exclamation text-red-400 text-sm" : "fa-solid fa-circle-check text-emerald-400 text-sm";
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            setTimeout(() => { toast.classList.add('translate-y-24', 'opacity-0'); }, 3000);
+        }
+    </script>  
+</body>
+</html>
