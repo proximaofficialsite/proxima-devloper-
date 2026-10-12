@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROXIMA SITE - Official Website</title>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+        body { background: radial-gradient(circle at top, #1a0b36 0%, #070312 100%); color: #ffffff; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px 15px; }
+        .bio-card { width: 100%; max-width: 420px; background: #110c1f; border: 2px solid #20173d; border-radius: 32px; padding: 40px 24px; text-align: center; box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.7); position: relative; }
+        .share-btn { position: absolute; top: 25px; right: 25px; width: 40px; height: 40px; background: #8a2be2; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; cursor: pointer; box-shadow: 0 0 15px rgba(138, 43, 226, 0.5); }
+        .profile-wrapper { width: 130px; height: 130px; margin: 0 auto 20px auto; border-radius: 50%; background: linear-gradient(45deg, #8a2be2, #4b0082); padding: 3px; box-shadow: 0 0 30px rgba(138, 43, 226, 0.8); display: flex; justify-content: center; align-items: center; }
+        .profile-text-circle { width: 100%; height: 100%; border-radius: 50%; background-color: #1a0f30; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'Audiowide', sans-serif; font-weight: 900; font-size: 13px; text-transform: uppercase; padding: 10px; color: #00ffcc; text-shadow: 0 0 10px #00ffcc, 0 0 20px #8a2be2; line-height: 1.3; letter-spacing: 1.5px; }
+        
+        /* RGB Animated Stylish Title CSS */
+        @keyframes rgbTextAnimation {
+            0% { filter: hue-rotate(0deg); }
+            50% { filter: hue-rotate(180deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        .profile-title { 
+            font-family: 'Audiowide', sans-serif; 
+            font-size: 26px; 
+            font-weight: 900; 
+            text-transform: uppercase; 
+            margin: 15px 0 8px 0; 
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, #ff0055, #00ffcc, #7b00ff, #ff0055);
+            background-size: 300% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: rgbGlowText 4s linear infinite, rgbTextAnimation 6s linear infinite;
+            text-shadow: 0 0 20px rgba(0, 255, 204, 0.4);
+        }
+
+        @keyframes rgbGlowText {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .profile-subtitle { font-size: 14px; color: #a29db8; margin-bottom: 30px; }
+        .social-container { display: flex; justify-content: center; gap: 16px; margin-bottom: 35px; }
+        .social-box { width: 48px; height: 48px; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; text-decoration: none; transition: transform 0.2s; }
+        .social-box:hover { transform: scale(1.1); }
+        .ig { background: linear-gradient(45deg, #f09433, #bc1888); }
+        .yt { background: #ff0000; }
+        .tg { background: #229ED9; }
+        
+        /* RGB Light Animation for Boxes */
+        @keyframes rgbGlow {
+            0% { border-color: #ff0055; box-shadow: 0 0 15px rgba(255, 0, 85, 0.4); }
+            33% { border-color: #00ffcc; box-shadow: 0 0 15px rgba(0, 255, 204, 0.4); }
+            66% { border-color: #7b00ff; box-shadow: 0 0 15px rgba(123, 0, 255, 0.4); }
+            100% { border-color: #ff0055; box-shadow: 0 0 15px rgba(255, 0, 85, 0.4); }
+        }
+
+        .link-item { background: #181326; border: 2px solid #261f3b; border-radius: 18px; padding: 18px 22px; margin-bottom: 16px; display: flex; align-items: center; text-decoration: none; color: white; transition: all 0.2s; animation: rgbGlow 5s infinite; }
+        .link-item:hover { background: #201933; transform: scale(1.02); }
+        .link-text { flex-grow: 1; text-align: left; }
+        .link-title { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+        .link-desc { font-size: 11px; color: #797393; text-transform: uppercase; }
+        .box-icon { font-size: 28px; margin-right: 18px; width: 45px; display: flex; justify-content: center; }
+        .playstore-color { color: #3bccff; }
+        .gear-color { color: #a29db8; }
+        .mobile-color { color: #00ff88; }
+    </style>
+</head>
+<body>
+    <div class="bio-card">
+        <div class="share-btn"><i class="fa-solid fa-share-nodes"></i></div>
+        <div class="profile-wrapper">
+            <div class="profile-text-circle">
+                <span>PROXIMA</span>
+                <span>SITE</span>
+            </div>
+        </div>
+        <h1 class="profile-title">PROXIMA SITE</h1>
+        <p class="profile-subtitle">devloper by ariful all hack free </p>
+
+        <!-- Social Icons -->
+        <div class="social-container">
+            <a id="link-instagram" href="#" target="_blank" class="social-box ig"><i class="fa-brands fa-instagram"></i></a>
+            <a id="link-youtube" href="#" target="_blank" class="social-box yt"><i class="fa-brands fa-youtube"></i></a>
+            <a id="link-telegram" href="#" target="_blank" class="social-box tg"><i class="fa-brands fa-telegram"></i></a>
+        </div>
+
+        <a id="link-box-key" href="#" target="_blank" class="link-item">
+            <div class="link-text">
+                <div class="link-title">GET KEY FREE</div>
+                <div class="link-desc">panel & sensi </div>
+            </div>
+        </a>
+
+        <a id="link-box-non-root" href="#" target="_blank" class="link-item">
+            <div class="box-icon mobile-color"><i class="fa-solid fa-mobile-screen-button"></i></div>
+            <div class="link-text">
+                <div class="link-title">non root panel</div>
+                <div class="link-desc">DOWNLOAD > PAINEL NON ROOT</div>
+            </div>
+        </a>
+
+        <a id="link-box-proxy" href="#" target="_blank" class="link-item">
+            <div class="box-icon gear-color"><i class="fa-solid fa-gear"></i></div>
+            <div class="link-text">
+                <div class="link-title">  root panel</div>
+                <div class="link-desc">DOWNLOAD > root panel & sensi</div>
+            </div>
+        </a>
+        
+        <a id="link-box-playstore" href="#" target="_blank" class="link-item">
+            <div class="box-icon playstore-color"><i class="fa-brands fa-google-play"></i></div>
+            <div class="link-text">
+                <div class="link-title">Free Fire PlayStore</div>
+                <div class="link-desc">DOWNLOAD > FREE FIRE</div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-analytics-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCQ35RcrrL0jJIWqsf8Tp5mcDuCRwX5dk4",
+            authDomain: "proxima-root.firebaseapp.com",
+            databaseURL: "https://proxima-root-default-rtdb.firebaseio.com",
+            projectId: "proxima-root",
+            storageBucket: "proxima-root.firebasestorage.app",
+            messagingSenderId: "641924713343",
+            appId: "1:641924713343:web:83c3fc52f9afab4747a84a",
+            measurementId: "G-7D4W0CYJ67"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+
+        const configLinks = {
+            instagram: "https://www.instagram.com/ariful_official24?cplk=MTducWdxOXp4ZXV1MA==",
+            youtube:   "https://youtube.com/@tgrariful_yt?si=05vEat2xjzarWIgj",
+            telegram:  "https://t.me/proxima_secure",
+            
+            getKeyBox:      "https://proximaofficialsite.github.io/proximaKe/",
+            nonRootBox:     "https://proximaofficialsite.github.io/proximaKe/",
+            proxyGringoBox: "https://proximaofficialsite.github.io/Proximasite/",
+            freeFireBox:    "https://play.google.com/store/apps/details?id=com.dts.freefiremax"
+        };
+
+        document.getElementById('link-instagram').href = configLinks.instagram;
+        document.getElementById('link-youtube').href = configLinks.youtube;
+        document.getElementById('link-telegram').href = configLinks.telegram;
+        document.getElementById('link-box-key').href = configLinks.getKeyBox;
+        document.getElementById('link-box-non-root').href = configLinks.nonRootBox;
+        document.getElementById('link-box-proxy').href = configLinks.proxyGringoBox;
+        document.getElementById('link-box-playstore').href = configLinks.freeFireBox;
+    </script>
+</body>
+</html>
