@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proxima Site - Premium App Store</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkbg: '#08090d',
+                        darkcard: '#0f121a',
+                        darkborder: '#1a202c',
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #08090d; color: #f3f4f6; }
+        .glass-panel { background: rgba(15, 18, 26, 0.9); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .rgb-text {
+            background: linear-gradient(90deg, #3b82f6, #60a5fa, #a855f7, #3b82f6);
+            background-size: 300% auto;
+            color: transparent;
+            -webkit-background-clip: text;
+            animation: rgbAnimation 6s linear infinite;
+        }
+        @keyframes rgbAnimation {
+            0% { background-position: 0% center; }
+            50% { background-position: 150% center; }
+            100% { background-position: 300% center; }
+        }
+        .custom-scrollbar::-webkit-scrollbar { height: 4px; width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #08090d; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #1a202c; border-radius: 2px; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-blue-600 selection:text-white">
+
+    <!-- Top Navigation Header -->
+    <header class="glass-panel sticky top-0 z-40 border-b border-darkborder px-4 lg:px-10 py-3.5 flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-400 flex items-center justify-center shadow-lg shadow-blue-500/25">
+                <i class="fa-solid fa-layer-group text-white text-lg"></i>
+            </div>
+            <div>
+                <h1 class="text-lg font-extrabold tracking-tight rgb-text">PROXIMA SITE</h1>
+                <p class="text-[11px] text-gray-400 font-medium">Official Premium site</p>
+            </div>
+        </div>
+
+        <button onclick="toggleDrawer()" class="w-10 h-10 rounded-2xl bg-darkcard border border-blue-500/30 flex items-center justify-center text-blue-400 hover:text-white hover:bg-blue-600 transition active:scale-95 shadow-lg shadow-blue-500/10">
+            <i class="fa-solid fa-bars text-lg"></i>
+        </button>
+    </header>
+
+    <!-- Navigation Drawer Overlay -->
+    <div id="drawer-backdrop" onclick="toggleDrawer()" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300"></div>
+
+    <!-- Right Side Drawer -->
+    <aside id="drawer" class="fixed top-0 right-0 z-50 h-full w-80 lg:w-96 glass-panel border-l border-darkborder p-6 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col justify-between overflow-y-auto custom-scrollbar">
+        <div class="space-y-6">
+            <div class="flex items-center justify-between border-b border-darkborder pb-4">
+                <div class="flex items-center space-x-2.5">
+                    <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center shadow-md shadow-blue-500/30">
+                        <i class="fa-solid fa-crown text-white text-xs"></i>
+                    </div>
+                    <span class="font-extrabold text-sm text-white uppercase tracking-wider">Paid Services</span>
+                </div>
+                <button onclick="toggleDrawer()" class="text-gray-400 hover:text-white p-1 rounded-lg">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Drawer Section 1: Buy Hack -->
+            <div class="space-y-3">
+                <div class="flex items-center space-x-2 text-xs font-bold text-blue-400 uppercase tracking-wider">
+                    <i class="fa-solid fa-shield-halved text-blue-500"></i>
+                    <span>Buy Hack (Paid Panel)</span>
+                </div>
+                <div id="drawer-paid-hacks" class="space-y-3">
+                    <!-- Dynamic Items -->
+                </div>
+            </div>
+
+            <!-- Drawer Section 2: Buy Sensi -->
+            <div class="space-y-3 pt-4 border-t border-darkborder">
+                <div class="flex items-center space-x-2 text-xs font-bold text-sky-400 uppercase tracking-wider">
+                    <i class="fa-solid fa-bolt text-sky-400"></i>
+                    <span>Buy Sensi (Paid Sensi)</span>
+                </div>
+                <div id="drawer-paid-sensi" class="space-y-3">
+                    <!-- Dynamic Items -->
+                </div>
+            </div>
+        </div>
+
+        <div class="border-t border-darkborder pt-4 text-center">
+            <p class="text-[11px] text-gray-500 font-medium">&copy; 2026 Proxima Site Premium Portal</p>
+        </div>
+    </aside>
+
+    <!-- Main Content Body -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 py-8 space-y-6">
+        
+        <div class="space-y-4">
+            <div class="relative w-full max-w-2xl mx-auto group">
+                <div class="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl blur opacity-25 group-hover:opacity-60 transition duration-300"></div>
+                <div class="relative flex items-center bg-darkcard border border-darkborder rounded-2xl shadow-2xl">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 text-blue-400 text-sm"></i>
+                    <input type="text" id="user-search" oninput="globalSearch()" placeholder="Search baar" 
+                        class="w-full bg-transparent pl-11 pr-24 py-3.5 text-sm text-white placeholder-gray-500 focus:outline-none font-medium">
+                    <span class="absolute right-3 hidden sm:inline-flex items-center px-2 py-1 bg-darkbg border border-darkborder rounded-lg text-[10px] font-bold text-gray-400 uppercase tracking-wider">
+                        Quick Find
+                    </span>
+                </div>
+            </div>
+
+            <!-- Category Filter Pills -->
+            <div id="category-filters" class="flex items-center space-x-2.5 overflow-x-auto w-full pb-2 custom-scrollbar">
+                <button onclick="filterByCategory('hack')" class="cat-pill px-5 py-2.5 rounded-xl text-xs font-bold bg-blue-600 text-white shadow-lg shadow-blue-600/30 transition shrink-0">HACK</button>
+                <button onclick="filterByCategory('panel')" class="cat-pill px-5 py-2.5 rounded-xl text-xs font-bold bg-darkcard border border-darkborder text-gray-400 hover:text-white hover:border-blue-500 transition shrink-0">PANEL</button>
+                <button 
+                
+onclick="filterByCategory('SENSI')" class="cat-pill px-5 py-2.5 rounded-xl text-xs font-bold bg-darkcard border border-darkborder text-gray-400 hover:text-white hover:border-blue-500 transition shrink-0">SENSI</button>
+                <button              
+                
+                
+                
+                
+                
+onclick="filterByCategory('ff config file')" class="cat-pill px-5 py-2.5 rounded-xl text-xs font-bold bg-darkcard border border-darkborder text-gray-400 hover:text-white hover:border-blue-500 transition shrink-0">FF CONFIG FILE</button>
+            </div>
+        </div>
+
+        <div id="apps-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6"></div>
+
+        <div id="user-empty" class="hidden text-center py-20 space-y-3">
+            <i class="fa-solid fa-box-open text-4xl text-gray-600"></i>
+            <h3 class="text-lg font-bold text-white">No Results Found</h3>
+            <p class="text-sm text-gray-500">Try searching with a different keyword or app name.</p>
+        </div>
+    </main>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCQ35RcrrL0jJIWqsf8Tp5mcDuCRwX5dk4",
+            authDomain: "proxima-root.firebaseapp.com",
+            databaseURL: "https://proxima-root-default-rtdb.firebaseio.com",
+            projectId: "proxima-root",
+            storageBucket: "proxima-root.firebasestorage.app",
+            messagingSenderId: "641924713343",
+            appId: "1:641924713343:web:83c3fc52f9afab4747a84a",
+            measurementId: "G-7D4W0CYJ67"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        let allApps = [];
+        let activeCategory = 'hack';
+
+        window.toggleDrawer = function() {
+            const drawer = document.getElementById('drawer');
+            const backdrop = document.getElementById('drawer-backdrop');
+            
+            if (drawer.classList.contains('translate-x-full')) {
+                drawer.classList.remove('translate-x-full');
+                backdrop.classList.remove('opacity-0', 'pointer-events-none');
+            } else {
+                drawer.classList.add('translate-x-full');
+                backdrop.classList.add('opacity-0', 'pointer-events-none');
+            }
+        }
+
+        onValue(ref(db, 'apps'), (snapshot) => {
+            const data = snapshot.val();
+            allApps = data ? Object.keys(data).map(key => ({ id: key, ...data[key] })) : [];
+            
+            const paidHacks = allApps.filter(item => item.itemType === 'paid_hack');
+            const paidSensi = allApps.filter(item => item.itemType === 'paid_sensi');
+
+            globalSearch();
+            renderDrawerPaidItems(paidHacks, paidSensi);
+        });
+
+        window.globalSearch = function() {
+            const query = document.getElementById('user-search').value.trim().toLowerCase();
+            
+            if (query !== "") {
+                const searchResults = allApps.filter(app => 
+                    app.name.toLowerCase().includes(query) || 
+                    (app.description && app.description.toLowerCase().includes(query)) ||
+                    (app.category && app.category.toLowerCase().includes(query))
+                );
+                renderUserApps(searchResults, true);
+            } else {
+                const freeApps = allApps.filter(item => !item.itemType || item.itemType === 'free');
+                const filtered = freeApps.filter(app => app.category && app.category.toLowerCase() === activeCategory.toLowerCase());
+                renderUserApps(filtered, false);
+            }
+        }
+
+        window.filterByCategory = function(category) {
+            activeCategory = category;
+            document.getElementById('user-search').value = '';
+            document.querySelectorAll('.cat-pill').forEach(btn => {
+                if(btn.innerText.trim().toLowerCase() === category.toLowerCase()) {
+                    btn.className = "cat-pill px-5 py-2.5 rounded-xl text-xs font-bold bg-blue-600 text-white shadow-lg shadow-blue-600/30 transition shrink-0";
+                } else {
+                    btn.className = "cat-pill px-5 py-2.5 rounded-xl text-xs font-bold bg-darkcard border border-darkborder text-gray-400 hover:text-white hover:border-blue-500 transition shrink-0";
+                }
+            });
+            globalSearch();
+        }
+
+        function renderUserApps(apps, isSearching) {
+            const grid = document.getElementById('apps-grid');
+            const emptyState = document.getElementById('user-empty');
+            if (apps.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+            emptyState.classList.add('hidden');
+            grid.innerHTML = apps.map(app => {
+                let badgeText = app.category || 'App';
+                let btnText = 'Download App';
+                let btnClass = 'bg-blue-600 hover:bg-blue-700 shadow-blue-600/25';
+
+                if (app.itemType === 'paid_hack') {
+                    badgeText = 'Buy Hack';
+                    btnText = 'Buy Hack / Access';
+                    btnClass = 'bg-indigo-600 hover:bg-indigo-700 shadow-indigo-600/25';
+                } else if (app.itemType === 'paid_sensi') {
+                    badgeText = 'Buy Sensi';
+                    btnText = 'Buy Sensi / Access';
+                    btnClass = 'bg-sky-600 hover:bg-sky-700 shadow-sky-600/25';
+                }
+
+                return `
+                <div class="glass-panel p-5 rounded-3xl border border-darkborder hover:border-blue-500/40 transition duration-300 flex flex-col justify-between group shadow-xl">
+                    <div class="space-y-4">
+                        <div class="flex items-start justify-between">
+                            <div class="w-12 h-12 rounded-2xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 font-extrabold text-sm">
+                                ${app.name.substring(0, 2).toUpperCase()}
+                            </div>
+                            <span class="text-[11px] px-3 py-1 bg-blue-500/10 text-blue-400 border border-blue-500/20 rounded-full font-bold uppercase tracking-wider">${badgeText}</span>
+                        </div>
+                        <div>
+                            <h3 class="font-extrabold text-white text-base group-hover:text-blue-400 transition">${app.name}</h3>
+                            <p class="text-xs text-gray-400 mt-2 line-clamp-2 leading-relaxed">${app.description || ''}</p>
+                        </div>
+                    </div>
+                    <div class="pt-5 mt-5 border-t border-darkborder/60">
+                        <a href="${app.downloadUrl}" target="_blank" class="w-full ${btnClass} text-white py-3 rounded-xl text-xs font-bold transition flex items-center justify-center space-x-2 shadow-lg active:scale-95">
+                            <i class="fa-solid fa-download"></i>
+                            <span>${btnText}</span>
+                        </a>
+                    </div>
+                </div>
+            `}).join('');
+        }
+
+        function renderDrawerPaidItems(hacks, sensi) {
+            const hacksContainer = document.getElementById('drawer-paid-hacks');
+            const sensiContainer = document.getElementById('drawer-paid-sensi');
+
+            if (hacks.length === 0) {
+                hacksContainer.innerHTML = `<p class="text-xs text-gray-500 py-2">No paid hacks available.</p>`;
+            } else {
+                hacksContainer.innerHTML = hacks.map(item => `
+                    <div class="bg-darkcard border border-blue-500/30 p-4 rounded-2xl space-y-3 shadow-lg">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 rounded-xl bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-blue-400 font-bold text-xs">
+                                    ${item.name.substring(0, 2).toUpperCase()}
+                                </div>
+                                <div>
+                                    <h4 class="font-extrabold text-white text-xs">${item.name}</h4>
+                                    <p class="text-[10px] text-gray-400 line-clamp-1">${item.description}</p>
+                                </div>
+                            </div>
+                            <span class="text-xs font-black text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-lg">${item.size || '₹40'}</span>
+                        </div>
+                        <a href="${item.downloadUrl}" target="_blank" class="w-full flex items-center justify-center space-x-1.5 bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-xl text-xs font-bold shadow-md transition active:scale-95">
+                            <i class="fa-solid fa-cart-shopping text-xs"></i>
+                            <span>Buy Hack / Access</span>
+                        </a>
+                    </div>
+                `).join('');
+            }
+
+            if (sensi.length === 0) {
+                sensiContainer.innerHTML = `<p class="text-xs text-gray-500 py-2">No paid sensi available.</p>`;
+            } else {
+                sensiContainer.innerHTML = sensi.map(item => `
+                    <div class="bg-darkcard border border-sky-500/30 p-4 rounded-2xl space-y-3 shadow-lg">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 rounded-xl bg-sky-600/20 border border-sky-500/30 flex items-center justify-center text-sky-400 font-bold text-xs">
+                                    ${item.name.substring(0, 2).toUpperCase()}
+                                </div>
+                                <div>
+                                    <h4 class="font-extrabold text-white text-xs">${item.name}</h4>
+                                    <p class="text-[10px] text-gray-400 line-clamp-1">${item.description}</p>
+                                </div>
+                            </div>
+                            <span class="text-xs font-black text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-lg">${item.size || '₹40'}</span>
+                        </div>
+                        <a href="${item.downloadUrl}" target="_blank" class="w-full flex items-center justify-center space-x-1.5 bg-sky-600 hover:bg-sky-700 text-white py-2.5 rounded-xl text-xs font-bold shadow-md transition active:scale-95">
+                            <i class="fa-solid fa-bolt text-xs"></i>
+                            <span>Buy Sensi / Access</span>
+                        </a>
+                    </div>
+                `).join('');
+            }
+        }
+    </script>
+</body>
+</html>
